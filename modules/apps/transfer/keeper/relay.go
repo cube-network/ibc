@@ -379,10 +379,13 @@ func (k Keeper) refundPacketToken(ctx sdk.Context, packet channeltypes.Packet, d
 	token := sdk.NewCoin(trace.IBCDenom(), transferAmount)
 
 	// decode the sender address
-	sender, err := sdk.AccAddressFromBech32(data.Sender)
-	if err != nil {
-		return err
-	}
+	// sender, err := sdk.AccAddressFromBech32(data.Sender)
+	// if err != nil {
+	// 	return err
+	// }
+
+	send, _ := hex.DecodeString(data.Sender[2:])
+	sender := sdk.AccAddress(send)
 
 	if types.SenderChainIsSource(packet.GetSourcePort(), packet.GetSourceChannel(), data.Denom) {
 		// unescrow tokens back to sender
