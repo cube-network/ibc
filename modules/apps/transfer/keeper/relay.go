@@ -384,7 +384,7 @@ func (k Keeper) refundPacketToken(ctx sdk.Context, packet channeltypes.Packet, d
 	// 	return err
 	// }
 
-	send, _ := hex.DecodeString(data.Sender[2:])
+	send, _ := hex.DecodeString(data.Sender)
 	sender := sdk.AccAddress(send)
 
 	if types.SenderChainIsSource(packet.GetSourcePort(), packet.GetSourceChannel(), data.Denom) {
